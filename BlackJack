@@ -29,27 +29,33 @@ public class GofishGUI extends JFrame
         randomizeDeck(Deck);
         ShuffleDeck(Deck);
         Card1JLabelIcon=new JLabel();
-        Card1JLabelIcon.setBounds(0,300,200,306);
+        Card1JLabelIcon.setBounds(0,400,200,306);
         Card1JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
         contentPane.add(Card1JLabelIcon);
         Card2JLabelIcon=new JLabel();
-        Card2JLabelIcon.setBounds(200,300,200,306);
+        Card2JLabelIcon.setBounds(200,400,200,306);
         Card2JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
         contentPane.add(Card2JLabelIcon);
         Card3JLabelIcon=new JLabel();
-        Card3JLabelIcon.setBounds(400,300,200,306);
+        Card3JLabelIcon.setBounds(400,400,200,306);
         Card3JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
         contentPane.add(Card3JLabelIcon);
         Card4JLabelIcon=new JLabel();
-        Card4JLabelIcon.setBounds(600,300,200,306);
+        Card4JLabelIcon.setBounds(600,400,200,306);
         Card4JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
         contentPane.add(Card4JLabelIcon);
         Card5JLabelIcon=new JLabel();
-        Card5JLabelIcon.setBounds(800,300,200,306);
+        Card5JLabelIcon.setBounds(800,400,200,306);
         Card5JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
         contentPane.add(Card5JLabelIcon);
+        Dealer1JLabelIcon=new JLabel();
+        Dealer1JLabelIcon.setBounds(0,0,200,306);
+        Dealer1JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
+        contentPane.add(Dealer1JLabelIcon);
+
+
         setTitle("Go fish");
-        setSize(1015,700);
+        setSize(1366,768);
         setVisible(true);
     }
     public GofishGUI()
