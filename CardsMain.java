@@ -1,4 +1,3 @@
-//main menu for cardsgames
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,6 +31,11 @@ public class MainMenu extends JFrame
         GameOfCutJButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent GameOfCutactionpressed) {
                 GameOfCutGUI.Start();
+            }
+        });
+        GofishJButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent GofishJButtonactionperformed) {
+                GofishGUI.Start();
             }
         });
         setTitle("Main Menu");
