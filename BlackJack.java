@@ -1,11 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class GofishGUI extends JFrame
+public class BlackJack extends JFrame
 {
+    int intcounter=0;
+    Random rand=new Random();
+    int randcard=rand.nextInt(51);
+    static char[] charSuits={'H','C','D','S'};
+    static char[] charfaces={'A','2','T','J','Q','K'};
     JLabel Card1JLabelIcon;
     JLabel Card2JLabelIcon;
     JLabel Card3JLabelIcon;
@@ -28,111 +33,211 @@ public class GofishGUI extends JFrame
         PopDeck(Deck);
         randomizeDeck(Deck);
         ShuffleDeck(Deck);
+        HitJButton=new JButton();
+        HitJButton.setText("Hit");
+        HitJButton.setBounds(1150,250,100,50);
+        contentPane.add(HitJButton);
+        foldJButton=new JButton();
+        foldJButton.setText("fold");
+        foldJButton.setBounds(1150,400,100,50);
+        contentPane.add(foldJButton);
         Card1JLabelIcon=new JLabel();
         Card1JLabelIcon.setBounds(0,400,200,306);
-        Card1JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
+        Card1JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\cardsfacesresized\\red_back-resized.png"));
         contentPane.add(Card1JLabelIcon);
         Card2JLabelIcon=new JLabel();
         Card2JLabelIcon.setBounds(200,400,200,306);
-        Card2JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
+        Card2JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\cardsfacesresized\\red_back-resized.png"));
         contentPane.add(Card2JLabelIcon);
         Card3JLabelIcon=new JLabel();
         Card3JLabelIcon.setBounds(400,400,200,306);
-        Card3JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
+        Card3JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\cardsfacesresized\\red_back-resized.png"));
         contentPane.add(Card3JLabelIcon);
         Card4JLabelIcon=new JLabel();
         Card4JLabelIcon.setBounds(600,400,200,306);
-        Card4JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
+        Card4JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\cardsfacesresized\\red_back-resized.png"));
         contentPane.add(Card4JLabelIcon);
         Card5JLabelIcon=new JLabel();
         Card5JLabelIcon.setBounds(800,400,200,306);
-        Card5JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
+        Card5JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\cardsfacesresized\\red_back-resized.png"));
         contentPane.add(Card5JLabelIcon);
         Dealer1JLabelIcon=new JLabel();
         Dealer1JLabelIcon.setBounds(0,0,200,306);
-        Dealer1JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\red_back-resized.png"));
+        Dealer1JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\cardsfacesresized\\red_back-resized.png"));
         contentPane.add(Dealer1JLabelIcon);
-
-
+        Dealer2JLabelIcon=new JLabel();
+        Dealer2JLabelIcon.setBounds(200,0,200,306);
+        Dealer2JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\cardsfacesresized\\red_back-resized.png"));
+        contentPane.add(Dealer2JLabelIcon);
+        Dealer3JLabelIcon=new JLabel();
+        Dealer3JLabelIcon.setBounds(400,0,200,306);
+        Dealer3JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\cardsfacesresized\\red_back-resized.png"));
+        contentPane.add(Dealer3JLabelIcon);
+        Dealer4JLabelIcon=new JLabel();
+        Dealer4JLabelIcon.setBounds(600,0,200,306);
+        Dealer4JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\cardsfacesresized\\red_back-resized.png"));
+        contentPane.add(Dealer4JLabelIcon);
+        Dealer5JLabelIcon=new JLabel();
+        Dealer5JLabelIcon.setBounds(800,0,200,306);
+        Dealer5JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\cardsfacesresized\\red_back-resized.png"));
+        contentPane.add(Dealer5JLabelIcon);
+        foldJButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent foldactionperformed) {
+                AIPlay(Deck);
+            }
+        });
+        HitJButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent hitactionperformed) {
+                if(intcounter==0)
+                {
+                    Card3JLabelIcon.setVisible(true);
+                    randcard=rand.nextInt(51);
+                    Card3JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\"+String.valueOf(GetCardCharValue(Deck[randcard]))+charSuits[Deck[randcard].getSuit()]+"resized.png"));
+                    intcounter++;
+                }
+                else if(intcounter==1)
+                {
+                    Card4JLabelIcon.setVisible(true);
+                    randcard=rand.nextInt(51);
+                    Card4JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\"+String.valueOf(GetCardCharValue(Deck[randcard]))+charSuits[Deck[randcard].getSuit()]+"resized.png"));
+                    intcounter++;
+                }
+                else if(intcounter==2)
+                {
+                    Card5JLabelIcon.setVisible(true);
+                    randcard=rand.nextInt(51);
+                    Card5JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\"+String.valueOf(GetCardCharValue(Deck[randcard]))+charSuits[Deck[randcard].getSuit()]+"resized.png"));
+                    intcounter++;
+                    AIPlay(Deck);
+                }
+                }
+        });
+        Play(Deck);
         setTitle("Go fish");
         setSize(1366,768);
         setVisible(true);
     }
-    public GofishGUI()
+    public void AIPlay(Card[]Deck)
+    {
+        Dealer3JLabelIcon.setVisible(true);
+    }
+    public void Play(Card[] Deck)
+    {
+        ShuffleDeck(Deck);
+        Dealer3JLabelIcon.setVisible(false);
+        Dealer4JLabelIcon.setVisible(false);
+        Dealer5JLabelIcon.setVisible(false);
+        Card3JLabelIcon.setVisible(false);
+        Card4JLabelIcon.setVisible(false);
+        Card5JLabelIcon.setVisible(false);
+        Random rand=new Random();
+        int randcard=rand.nextInt(51);
+        Card1JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\"+String.valueOf(GetCardCharValue(Deck[randcard]))+charSuits[Deck[randcard].getSuit()]+"resized.png"));
+        randcard=rand.nextInt(51);
+        Card2JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\"+String.valueOf(GetCardCharValue(Deck[randcard]))+charSuits[Deck[randcard].getSuit()]+"resized.png"));
+        randcard=rand.nextInt(51);
+        Dealer1JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\"+String.valueOf(GetCardCharValue(Deck[randcard]))+charSuits[Deck[randcard].getSuit()]+"resized.png"));
+        randcard=rand.nextInt(51);
+        Dealer2JLabelIcon.setIcon(new ImageIcon("C:\\Users\\amort\\Desktop\\"+String.valueOf(GetCardCharValue(Deck[randcard]))+charSuits[Deck[randcard].getSuit()]+"resized.png"));
+
+    }
+    public BlackJack()
     {
         CreateUI();
     }
     public static void Start()
     {
-        GofishGUI application= new GofishGUI();
+        BlackJack application= new BlackJack();
     }
-    public static void initDeck(Card[] Deck)                        //initialize deck methodA
+    public static void initDeck(Card[] Deck)
     {
-        for(int x=0;x<52;x++)                                       //run through the deck
+        for(int x=0;x<52;x++)
         {
-            Deck[x]=new Card();                                     //create a new card for each position in the array
-            Deck[x].setposition(-1);                                //set the position value of each card to -1, so that it may be reassigned later
+            Deck[x]=new Card();
+            Deck[x].setposition(-1);
         }
     }
-    public static void PopDeck(Card[] Deck)                         //method to populate deck
+    public static void PopDeck(Card[] Deck)
     {
-        int intindex;                                               //index, used for tracking the position within the deck array to know which card to alter
-        for(int suits=0;suits<4;suits++)                            //for each suit
+        int intindex;
+        for(int suits=0;suits<4;suits++)
         {
-            for(int value=0; value<13; value++)                     //run through each card value, 13*4 being 52, so all cards are modified
+            for(int value=0; value<13; value++)
             {
-                intindex=value+(13*suits);                          //set the index to the value of the for loop plus 13* the suit, so that a unique value and suit are available for a card
-                Deck[intindex].setsuit(suits);                      //set the suit at index of the deck array's card to the current suit in the for loop
-                Deck[intindex].setvalue(value+1);                   //set the value at index of the deck array's card to the current value of the second for loop
+                intindex=value+(13*suits);
+                Deck[intindex].setsuit(suits);
+                Deck[intindex].setvalue(value+1);
             }
         }
     }
-    public static void randomizeDeck(Card[] Deck)                   //randomize card values of cards in the deck
+    public static void randomizeDeck(Card[] Deck)
     {
-        boolean boolhaspos;                                         //tests to see if a card has a position
-        int intrandomposition;                                      //holds a randomly generated position
-        Random rand=new Random();                                   //random num gen for random num for position of a card
-        for(int y=0; y<Deck.length; y++)                            //run through the deck
+        boolean boolhaspos;
+        int intrandomposition;
+        Random rand=new Random();
+        for(int y=0; y<Deck.length; y++)
         {
-            boolhaspos=false;                                       //if a card has a position, re run the while loop
-            intrandomposition=rand.nextInt(52);             //make a random number for position, 0-52
-            while(boolhaspos==false)                                //while a card does not have a position
+            boolhaspos=false;
+            intrandomposition=rand.nextInt(52);
+            while(boolhaspos==false)
             {
-                intrandomposition=rand.nextInt(52);         //new random num
-                boolhaspos=true;                                    //don't re run the while loop
-                for(int x=0; x<Deck.length; x++)                    //run through the deck
+                intrandomposition=rand.nextInt(52);
+                boolhaspos=true;
+                for(int x=0; x<Deck.length; x++)
                 {
-                    if(Deck[x].getposition() == intrandomposition)  //if any other card has this same random number then
+                    if(Deck[x].getposition() == intrandomposition)
 
-                        boolhaspos = false;                         //re run the while loop
+                        boolhaspos = false;
                 }
             }
-            Deck[y].setposition(intrandomposition);                 //if no other card does, set the position of the card to the randomly generated number
+            Deck[y].setposition(intrandomposition);
         }
     }
-    public static void ShuffleDeck(Card[] decktwo)                                                  //bubble sort which sorts cards based on position
+    public static void ShuffleDeck(Card[] decktwo)
     {
-        boolean boolswap=true;                                                                      //bool used to keep the while loop going
-        Card tempcard=new Card();                                                                   //temporary card used to hold the value of one card so that two may be swapped
-        while (boolswap == true)                                                                    //while swap is true
+        boolean boolswap=true;
+        Card tempcard=new Card();
+        while (boolswap == true)
         {
-            boolswap = false;                                                                       //reset the while loop
-            for(int x=0; x<decktwo.length-1; x++)                                                   //run through the deck
+            boolswap = false;
+            for(int x=0; x<decktwo.length-1; x++)
             {
-                if (decktwo[x + 1].getposition() < decktwo[x].getposition())                        //if this card has a higher value than the card to its left in the array
+                if (decktwo[x + 1].getposition() < decktwo[x].getposition())
                 {
-                    tempcard.setposition(decktwo[x].getposition());                                 //swapping card values so that they appear to be reordered properly
-                    tempcard.setsuit(decktwo[x].getSuit());                                         //swapping card values so that they appear to be reordered properly
-                    tempcard.setvalue(decktwo[x].getvalue());                                       //swapping card values so that they appear to be reordered properly
-                    decktwo[x].setposition(decktwo[x + 1].getposition());                           //swapping card values so that they appear to be reordered properly
-                    decktwo[x].setsuit(decktwo[x + 1].getSuit());                                   //swapping card values so that they appear to be reordered properly
-                    decktwo[x].setvalue(decktwo[x + 1].getvalue());                                 //swapping card values so that they appear to be reordered properly
-                    decktwo[x + 1].setposition(tempcard.getposition());                             //swapping card values so that they appear to be reordered properly
-                    decktwo[x + 1].setsuit(tempcard.getSuit());                                     //swapping card values so that they appear to be reordered properly
-                    decktwo[x + 1].setvalue(tempcard.getvalue());                                   //swapping card values so that they appear to be reordered properly
-                    boolswap = true;                                                                //continue with the while loop
+                    tempcard.setposition(decktwo[x].getposition());
+                    tempcard.setsuit(decktwo[x].getSuit());
+                    tempcard.setvalue(decktwo[x].getvalue());
+                    decktwo[x].setposition(decktwo[x + 1].getposition());
+                    decktwo[x].setsuit(decktwo[x + 1].getSuit());
+                    decktwo[x].setvalue(decktwo[x + 1].getvalue());
+                    decktwo[x + 1].setposition(tempcard.getposition());
+                    decktwo[x + 1].setsuit(tempcard.getSuit());
+                    decktwo[x + 1].setvalue(tempcard.getvalue());
+                    boolswap = true;
                 }
             }
+        }
+    }
+    public static Character GetCardCharValue(Card card)
+    {
+        if(card.getvalue()==13)
+        {
+            return charfaces[0];
+        }
+        else if(card.getvalue()==9)
+        {
+            return charfaces[1];
+        }
+        else if(card.getvalue()==10)
+        {
+            return charfaces[2];
+        }
+        else if(card.getvalue()==11)
+        {
+            return charfaces[3];
+        }
+        else{
+            return charfaces[4];
         }
     }
 }
